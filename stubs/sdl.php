@@ -16,27 +16,48 @@ const SDL_INIT_EVERYTHING     = SDL_INIT_TIMER
                         | SDL_INIT_HAPTIC 
                         | SDL_INIT_GAMECONTROLLER 
                         | SDL_INIT_SENSOR;
-const SDL_WINDOW_FULLSCREEN         = 0x00000001;
-const SDL_WINDOW_OPENGL             = 0x00000002;
-const SDL_WINDOW_SHOWN              = 0x00000004;
-const SDL_WINDOW_HIDDEN             = 0x00000008;
-const SDL_WINDOW_BORDERLESS         = 0x00000010;
-const SDL_WINDOW_RESIZABLE          = 0x00000020;
-const SDL_WINDOW_MINIMIZED          = 0x00000040;
-const SDL_WINDOW_MAXIMIZED          = 0x00000080;
-const SDL_WINDOW_INPUT_GRABBED      = 0x00000100;
-const SDL_WINDOW_INPUT_FOCUS        = 0x00000200;
-const SDL_WINDOW_MOUSE_FOCUS        = 0x00000400;
+/** fullscreen window */
+const SDL_WINDOW_FULLSCREEN = 0x00000001;
+/** fullscreen window at the current desktop resolution */
 const SDL_WINDOW_FULLSCREEN_DESKTOP = ( SDL_WINDOW_FULLSCREEN | 0x00001000 );
-const SDL_WINDOW_FOREIGN            = 0x00000800;
-const SDL_WINDOW_ALLOW_HIGHDPI      = 0x00002000;
-const SDL_WINDOW_MOUSE_CAPTURE      = 0x00004000;
-const SDL_WINDOW_ALWAYS_ON_TOP      = 0x00008000;
-const SDL_WINDOW_SKIP_TASKBAR       = 0x00010000;
-const SDL_WINDOW_UTILITY            = 0x00020000;
-const SDL_WINDOW_TOOLTIP            = 0x00040000;
-const SDL_WINDOW_POPUP_MENU         = 0x00080000;
-const SDL_WINDOW_VULKAN             = 0x10000000;
+/** window usable with OpenGL context */
+const SDL_WINDOW_OPENGL = 0x00000002;
+/** window is visible */
+const SDL_WINDOW_SHOWN = 0x00000004;
+/** window is not visible */
+const SDL_WINDOW_HIDDEN = 0x00000008;
+/** no window decoration */
+const SDL_WINDOW_BORDERLESS = 0x00000010;
+/** window can be resized */
+const SDL_WINDOW_RESIZABLE = 0x00000020;
+/** window is minimized */
+const SDL_WINDOW_MINIMIZED = 0x00000040;
+/** window is maximized */
+const SDL_WINDOW_MAXIMIZED = 0x00000080;
+/** window has grabbed input focus */
+const SDL_WINDOW_INPUT_GRABBED = 0x00000100;
+/** window has input focus */
+const SDL_WINDOW_INPUT_FOCUS = 0x00000200;
+/** window has mouse focus */
+const SDL_WINDOW_MOUSE_FOCUS = 0x00000400;
+/** window not created by SDL */
+const SDL_WINDOW_FOREIGN = 0x00000800;
+/** window should be created in high-DPI mode if supported (>= SDL 2.0.1) */
+const SDL_WINDOW_ALLOW_HIGHDPI = 0x00002000;
+/** window has mouse captured (unrelated to INPUT_GRABBED, >= SDL 2.0.4) */
+const SDL_WINDOW_MOUSE_CAPTURE = 0x00004000;
+/** window should always be above others (X11 only, >= SDL 2.0.5) */
+const SDL_WINDOW_ALWAYS_ON_TOP = 0x00008000;
+/** window should not be added to the taskbar (X11 only, >= SDL 2.0.5) */
+const SDL_WINDOW_SKIP_TASKBAR = 0x00010000;
+/** window should be treated as a utility window (X11 only, >= SDL 2.0.5) */
+const SDL_WINDOW_UTILITY = 0x00020000;
+/** window should be treated as a tooltip (X11 only, >= SDL 2.0.5) */
+const SDL_WINDOW_TOOLTIP = 0x00040000;
+/** window should be treated as a popup menu (X11 only, >= SDL 2.0.5) */
+const SDL_WINDOW_POPUP_MENU = 0x00080000;
+/** window usable with a Vulkan instance */
+const SDL_WINDOW_VULKAN = 0x10000000;
 /** The renderer is a software fallback */
 const SDL_RENDERER_SOFTWARE = 0x00000001;
 /** The renderer uses hardware acceleration */
@@ -774,6 +795,267 @@ const SDLK_APP2               = SDL_SCANCODE_APP2               | (1 << 30);
 const SDLK_AUDIOREWIND        = SDL_SCANCODE_AUDIOREWIND        | (1 << 30);
 const SDLK_AUDIOFASTFORWARD   = SDL_SCANCODE_AUDIOFASTFORWARD   | (1 << 30);
 
+const SDL_MUTEX_TIMEDOUT = 0;
+
+const SDL_PIXELFORMAT_UNKNOWN   = 0;
+const SDL_PIXELFORMAT_INDEX1LSB = (
+    (1 << 28) 
+    | ((SDL_PIXELTYPE_INDEX1) << 24) 
+    | ((SDL_BITMAPORDER_4321) << 20) 
+    | ((0) << 16) 
+    | ((1) << 8) 
+    | ((0) << 0)
+);
+
+const SDL_PIXELFORMAT_INDEX1MSB = (
+    (1 << 28) 
+    | ((SDL_PIXELTYPE_INDEX1) << 24) 
+    | ((SDL_BITMAPORDER_1234) << 20) 
+    | ((0) << 16) 
+    | ((1) << 8) 
+    | ((0) << 0)
+);
+
+const SDL_PIXELFORMAT_INDEX4LSB = (
+    (1 << 28) 
+    | ((SDL_PIXELTYPE_INDEX4) << 24) 
+    | ((SDL_BITMAPORDER_4321) << 20) 
+    | ((0) << 16) 
+    | ((4) << 8) 
+    | ((0) << 0)
+);
+
+const SDL_PIXELFORMAT_INDEX4MSB = (
+    (1 << 28) 
+    | ((SDL_PIXELTYPE_INDEX4) << 24) 
+    | ((SDL_BITMAPORDER_1234) << 20) 
+    | ((0) << 16) 
+    | ((4) << 8) 
+    | ((0) << 0)
+);
+const SDL_PIXELFORMAT_INDEX8 = (
+    (1 << 28) 
+    | ((SDL_PIXELTYPE_INDEX8) << 24) 
+    | ((0) << 20) 
+    | ((0) << 16) 
+    | ((8) << 8) 
+    | ((1) << 0)
+);
+const SDL_PIXELFORMAT_RGB332 = (
+    (1 << 28) 
+    | ((SDL_PIXELTYPE_PACKED8) << 24) 
+    | ((SDL_PACKEDORDER_XRGB) << 20) 
+    | ((SDL_PACKEDLAYOUT_332) << 16) 
+    | ((8) << 8) 
+    | ((1) << 0)
+);
+const SDL_PIXELFORMAT_RGB444 = (
+    (1 << 28) 
+    | ((SDL_PIXELTYPE_PACKED16) << 24) 
+    | ((SDL_PACKEDORDER_XRGB) << 20) 
+    | ((SDL_PACKEDLAYOUT_4444) << 16) 
+    | ((12) << 8) 
+    | ((2) << 0)
+);
+const SDL_PIXELFORMAT_RGB555 = (
+    (1 << 28) 
+    | ((SDL_PIXELTYPE_PACKED16) << 24) 
+    | ((SDL_PACKEDORDER_XRGB) << 20) 
+    | ((SDL_PACKEDLAYOUT_1555) << 16) 
+    | ((15) << 8) 
+    | ((2) << 0)
+);
+const SDL_PIXELFORMAT_BGR555 = (
+    (1 << 28) 
+    | ((SDL_PIXELTYPE_PACKED16) << 24) 
+    | ((SDL_PACKEDORDER_XBGR) << 20) 
+    | ((SDL_PACKEDLAYOUT_1555) << 16) 
+    | ((15) << 8) 
+    | ((2) << 0)
+);
+const SDL_PIXELFORMAT_ARGB4444 = (
+    (1 << 28) 
+    | ((SDL_PIXELTYPE_PACKED16) << 24) 
+    | ((SDL_PACKEDORDER_ARGB) << 20) 
+    | ((SDL_PACKEDLAYOUT_4444) << 16) 
+    | ((16) << 8) 
+    | ((2) << 0)
+);
+const SDL_PIXELFORMAT_RGBA4444 = (
+    (1 << 28) 
+    | ((SDL_PIXELTYPE_PACKED16) << 24) 
+    | ((SDL_PACKEDORDER_RGBA) << 20) 
+    | ((SDL_PACKEDLAYOUT_4444) << 16) 
+    | ((16) << 8) 
+    | ((2) << 0)
+);
+const SDL_PIXELFORMAT_ABGR4444 = (
+    (1 << 28) 
+    | ((SDL_PIXELTYPE_PACKED16) << 24) 
+    | ((SDL_PACKEDORDER_ABGR) << 20) 
+    | ((SDL_PACKEDLAYOUT_4444) << 16) 
+    | ((16) << 8) 
+    | ((2) << 0)
+);
+const SDL_PIXELFORMAT_BGRA4444 = (
+    (1 << 28) 
+    | ((SDL_PIXELTYPE_PACKED16) << 24) 
+    | ((SDL_PACKEDORDER_BGRA) << 20) 
+    | ((SDL_PACKEDLAYOUT_4444) << 16) 
+    | ((16) << 8) 
+    | ((2) << 0)
+);
+const SDL_PIXELFORMAT_ARGB1555 = (
+    (1 << 28) 
+    | ((SDL_PIXELTYPE_PACKED16) << 24) 
+    | ((SDL_PACKEDORDER_ARGB) << 20) 
+    | ((SDL_PACKEDLAYOUT_1555) << 16) 
+    | ((16) << 8) 
+    | ((2) << 0)
+);
+const SDL_PIXELFORMAT_RGBA5551 = (
+    (1 << 28) 
+    | ((SDL_PIXELTYPE_PACKED16) << 24) 
+    | ((SDL_PACKEDORDER_RGBA) << 20) 
+    | ((SDL_PACKEDLAYOUT_5551) << 16) 
+    | ((16) << 8) 
+    | ((2) << 0)
+);
+const SDL_PIXELFORMAT_ABGR1555 = (
+    (1 << 28) 
+    | ((SDL_PIXELTYPE_PACKED16) << 24) 
+    | ((SDL_PACKEDORDER_ABGR) << 20) 
+    | ((SDL_PACKEDLAYOUT_1555) << 16) 
+    | ((16) << 8) 
+    | ((2) << 0)
+);
+const SDL_PIXELFORMAT_BGRA5551 = (
+    (1 << 28) 
+    | ((SDL_PIXELTYPE_PACKED16) << 24) 
+    | ((SDL_PACKEDORDER_BGRA) << 20) 
+    | ((SDL_PACKEDLAYOUT_5551) << 16) 
+    | ((16) << 8) 
+    | ((2) << 0)
+);
+const SDL_PIXELFORMAT_RGB565 = (
+    (1 << 28) 
+    | ((SDL_PIXELTYPE_PACKED16) << 24) 
+    | ((SDL_PACKEDORDER_XRGB) << 20) 
+    | ((SDL_PACKEDLAYOUT_565) << 16) 
+    | ((16) << 8) 
+    | ((2) << 0)
+);
+const SDL_PIXELFORMAT_BGR565 = (
+    (1 << 28) 
+    | ((SDL_PIXELTYPE_PACKED16) << 24) 
+    | ((SDL_PACKEDORDER_XBGR) << 20) 
+    | ((SDL_PACKEDLAYOUT_565) << 16) 
+    | ((16) << 8) 
+    | ((2) << 0)
+);
+const SDL_PIXELFORMAT_RGB24 = (
+    (1 << 28) 
+    | ((SDL_PIXELTYPE_ARRAYU8) << 24) 
+    | ((SDL_ARRAYORDER_RGB) << 20) 
+    | ((0) << 16) 
+    | ((24) << 8) 
+    | ((3) << 0)
+);
+const SDL_PIXELFORMAT_BGR24 = (
+    (1 << 28) 
+    | ((SDL_PIXELTYPE_ARRAYU8) << 24) 
+    | ((SDL_ARRAYORDER_BGR) << 20) 
+    | ((0) << 16) 
+    | ((24) << 8) 
+    | ((3) << 0)
+);
+const SDL_PIXELFORMAT_RGB888 = (
+    (1 << 28) 
+    | ((SDL_PIXELTYPE_PACKED32) << 24) 
+    | ((SDL_PACKEDORDER_XRGB) << 20) 
+    | ((SDL_PACKEDLAYOUT_8888) << 16) 
+    | ((24) << 8) 
+    | ((4) << 0)
+);
+const SDL_PIXELFORMAT_RGBX8888 = (
+    (1 << 28) 
+    | ((SDL_PIXELTYPE_PACKED32) << 24) 
+    | ((SDL_PACKEDORDER_RGBX) << 20) 
+    | ((SDL_PACKEDLAYOUT_8888) << 16) 
+    | ((24) << 8) 
+    | ((4) << 0)
+);
+const SDL_PIXELFORMAT_BGR888 = (
+    (1 << 28) 
+    | ((SDL_PIXELTYPE_PACKED32) << 24) 
+    | ((SDL_PACKEDORDER_XBGR) << 20) 
+    | ((SDL_PACKEDLAYOUT_8888) << 16) 
+    | ((24) << 8) 
+    | ((4) << 0)
+);
+const SDL_PIXELFORMAT_BGRX8888 = (
+    (1 << 28) 
+    | ((SDL_PIXELTYPE_PACKED32) << 24) 
+    | ((SDL_PACKEDORDER_BGRX) << 20) 
+    | ((SDL_PACKEDLAYOUT_8888) << 16) 
+    | ((24) << 8) 
+    | ((4) << 0)
+);
+const SDL_PIXELFORMAT_ARGB8888 = (
+    (1 << 28) 
+    | ((SDL_PIXELTYPE_PACKED32) << 24) 
+    | ((SDL_PACKEDORDER_ARGB) << 20) 
+    | ((SDL_PACKEDLAYOUT_8888) << 16) 
+    | ((32) << 8) 
+    | ((4) << 0)
+);
+const SDL_PIXELFORMAT_RGBA8888 = (
+    (1 << 28) 
+    | ((SDL_PIXELTYPE_PACKED32) << 24) 
+    | ((SDL_PACKEDORDER_RGBA) << 20) 
+    | ((SDL_PACKEDLAYOUT_8888) << 16) 
+    | ((32) << 8) 
+    | ((4) << 0)
+);
+const SDL_PIXELFORMAT_ABGR8888 = (
+    (1 << 28) 
+    | ((SDL_PIXELTYPE_PACKED32) << 24) 
+    | ((SDL_PACKEDORDER_ABGR) << 20) 
+    | ((SDL_PACKEDLAYOUT_8888) << 16) 
+    | ((32) << 8) 
+    | ((4) << 0)
+);
+const SDL_PIXELFORMAT_BGRA8888 = (
+    (1 << 28) 
+    | ((SDL_PIXELTYPE_PACKED32) << 24) 
+    | ((SDL_PACKEDORDER_BGRA) << 20) 
+    | ((SDL_PACKEDLAYOUT_8888) << 16) 
+    | ((32) << 8) 
+    | ((4) << 0)
+);
+const SDL_PIXELFORMAT_ARGB2101010 = (
+    (1 << 28) 
+    | ((SDL_PIXELTYPE_PACKED32) << 24) 
+    | ((SDL_PACKEDORDER_ARGB) << 20) 
+    | ((SDL_PACKEDLAYOUT_2101010) << 16) 
+    | ((32) << 8) 
+    | ((4) << 0)
+);
+
+const SDL_PIXELFORMAT_YV12         = (((int)((string)'Y')) << 0) | (((int)((string)'V')) << 8) | (((int)((string)'1')) << 16) | (((int)((string)'2')) << 24);
+const SDL_PIXELFORMAT_IYUV         = (((int)((string)'I')) << 0) | (((int)((string)'Y')) << 8) | (((int)((string)'U')) << 16) | (((int)((string)'V')) << 24);
+const SDL_PIXELFORMAT_YUY2         = (((int)((string)'Y')) << 0) | (((int)((string)'U')) << 8) | (((int)((string)'Y')) << 16) | (((int)((string)'2')) << 24);
+const SDL_PIXELFORMAT_UYVY         = (((int)((string)'U')) << 0) | (((int)((string)'Y')) << 8) | (((int)((string)'V')) << 16) | (((int)((string)'Y')) << 24);
+const SDL_PIXELFORMAT_YVYU         = (((int)((string)'Y')) << 0) | (((int)((string)'V')) << 8) | (((int)((string)'Y')) << 16) | (((int)((string)'U')) << 24);
+const SDL_PIXELFORMAT_NV12         = (((int)((string)'N')) << 0) | (((int)((string)'V')) << 8) | (((int)((string)'1')) << 16) | (((int)((string)'2')) << 24);
+const SDL_PIXELFORMAT_NV21         = (((int)((string)'N')) << 0) | (((int)((string)'V')) << 8) | (((int)((string)'2')) << 16) | (((int)((string)'1')) << 24);
+const SDL_PIXELFORMAT_EXTERNAL_OES = (((int)((string)'O')) << 0) | (((int)((string)'E')) << 8) | (((int)((string)'S')) << 16) | (((int)((string)' ')) << 24);
+
+
+const RW_SEEK_SET = 0;
+const RW_SEEK_CUR = 1;
+const RW_SEEK_END = 2;
+
 
 class SDL_MessageBoxData implements Stringable {
     public function __construct(
@@ -820,7 +1102,7 @@ class SDL_MessageBoxButtonData implements Stringable {
     }
 }
 
-class SDL_Window {
+class SDL_Window implements Stringable {
     const FULLSCREEN         = 0x00000001;
     const OPENGL             = 0x00000002;
     const SHOWN              = 0x00000004;
@@ -835,17 +1117,24 @@ class SDL_Window {
     const FULLSCREEN_DESKTOP = ( SDL_Window::FULLSCREEN | 0x00001000 );
     const FOREIGN            = 0x00000800;
     const ALLOW_HIGHDPI      = 0x00002000;
-    const MOUSE_CAPTURE      = 0x00004000;
-    const ALWAYS_ON_TOP      = 0x00008000;
-    const SKIP_TASKBAR       = 0x00010000;
-    const UTILITY            = 0x00020000;
-    const TOOLTIP            = 0x00040000;
-    const POPUP_MENU         = 0x00080000;
-    const VULKAN             = 0x10000000;
 
     public int $event;
 
+    public function __construct(
+        public string $title,
+        public int $x,
+        public int $y,
+        public int $w,
+        public int $h,
+        public int $flags,
+    ) {
+    }
+
     public function setTitle(string $title):void {
+    }
+
+    public function __toString(): string {
+        return '';
     }
 }
 
@@ -907,7 +1196,7 @@ class SDL_Cursor implements Stringable {
     }
 }
 
-class SDL_WindowShapeMode {
+class SDL_WindowShapeMode implements Stringable {
     /** The default mode, a binarized alpha cutoff of 1. */
     const Default = 0;
     
@@ -925,6 +1214,10 @@ class SDL_WindowShapeMode {
         private mixed $param,
     ) {
     }
+
+    public function __toString(): string {
+        return '';
+    }
 }
 
 class SDL_Event implements Stringable {
@@ -939,11 +1232,11 @@ class SDL_Event implements Stringable {
 }
 
 
-class SDL_Point {
-    public int $x;
-    public int $y;
-
-    public function __construct(int $x, int $y) {
+class SDL_Point implements Stringable {
+    public function __construct(
+        public int $x,
+        public int $y
+    ) {
     }
     public function __toString(): string {
         return '';
@@ -959,47 +1252,61 @@ class SDL_Rect implements Stringable {
     ) {
     }
 
-    public function __toString(): string {
-        return '';
-    }
-}
-
-class SDL_FPoint {
-    public function __construct(public float $x, public float $y) {
-    }
-    public function __toString(): string {
-        return '';
-    }
-}
-
-class SDL_FRect {
-    public float $x;
-    public float $y;
-    public float $w;
-    public float $h;
-
-    public function __construct(float $x, float $y, float $w, float $h) {
-    }
-    public function __toString(): string {
-        return '';
-    }
-
-    /** @alias SDL_FRectEmpty */
+    
     public function Empty(): bool {
         return true;
     }
-    /** @alias SDL_HasIntersectionF */
+    
+    public function HasIntersection(SDL_Rect $B): bool {
+        return true;
+    }
+    
+    public function Intersect(SDL_Rect $B, ?SDL_Rect &$result): bool {
+        return true;
+    }
+
+    public function __toString(): string {
+        return '';
+    }
+}
+
+class SDL_FPoint implements Stringable {
+    public function __construct(
+        public float $x,
+        public float $y
+    ) {
+    }
+    public function __toString(): string {
+        return '';
+    }
+}
+
+class SDL_FRect implements Stringable {
+    public function __construct(
+        public float $x = 0,
+        public float $y = 0,
+        public float $w = 0,
+        public float $h = 0
+    ) {
+    }
+    public function __toString(): string {
+        return '';
+    }
+
+    public function Empty(): bool {
+        return true;
+    }
+    
     public function HasIntersection(SDL_FRect $B): bool {
         return true;
     }
-    /** @alias SDL_IntersectFRect */
+
     public function Intersect(SDL_FRect $B, ?SDL_FRect &$result): bool {
         return true;
     }
 }
 
-
-class SDL_Color {
+class SDL_Color implements Stringable {
     public function __construct(
         public int $r,
         public int $g,
@@ -1007,19 +1314,48 @@ class SDL_Color {
         public int $a,
     ) {
     }
-}
 
-class SDL_Palette {
-    public function __construct(
-        public int $ncolors,
-        public SDL_Color $colors,
-        public int $version,
-        public int $refcount,
-    ) {
+    public function __toString(): string {
+        return '';
     }
 }
 
-class SDL_PixelFormat {
+class SDL_Palette implements Stringable {
+    public function __construct(
+        public int $ncolors,
+    ) {
+    }
+
+    
+    public function count():int {
+        return 0;
+    }
+
+    public function offsetExists(int $offset): bool {
+        return true;
+    }
+
+    public function offsetGet(int $offset): false|SDL_Color {
+        return false;
+    }
+
+    public function offsetUnset(int $offset): null|false {
+        return null;
+    }
+
+    public function offsetSet(
+        int $offset,
+        SDL_Color $value
+    ): null|false {
+        return null;
+    }
+
+    public function __toString(): string {
+        return '';
+    }
+}
+
+class SDL_PixelFormat implements Stringable {
     public function __construct(
         public int $format,
         public SDL_Palette $palette,
@@ -1041,6 +1377,25 @@ class SDL_PixelFormat {
         public int $refcount,
         public SDL_PixelFormat $next,
     ) {
+    }
+
+    public function GetRGB(
+        int &$r,
+        int &$g,
+        int &$b,
+    ): void {
+    }
+
+    public function GetRGBA(
+        int &$r,
+        int &$g,
+        int &$b,
+        int &$a,
+    ): void {
+    }
+
+    public function __toString(): string {
+        return '';
     }
 }
 
@@ -1092,19 +1447,13 @@ class SDL_BlitMap {
     }
 }
 
-class SDL_RWops {
-    public function __construct(
-        public callable $size,
-        public callable $seek,
-        public callable $read,
-        public callable $write,
-        public callable $close,
-        public int $type,
-    ) {
+class SDL_RWops implements Stringable {
+    public function __toString(): string {
+        return '';
     }
 }
 
-class SDL_Surface {
+class SDL_Surface implements Stringable {
     public function __construct(
         public int $flags,
         public SDL_PixelFormat $format,
@@ -1121,40 +1470,15 @@ class SDL_Surface {
     ) {
     }
 
-
     /**
-     * Load a surface from a seekable SDL data stream (memory or file).
-     *
-     * If `$freesrc` is non-zero, the stream will be closed after being read.
-     *
-     * The new surface should be freed with `SDL_FreeSurface()`.
-     * @param  SDL_RWops        $src
-     * @param  int              $freesrc
-     * @return null|SDL_Surface the new surface, or NULL if there was an error.
-     */
-    public static function SDL_LoadBMP_RW(
-        SDL_RWops $src,
-        int $freesrc
-    ):null|SDL_Surface {
-        return null;
-    }
-
-    /**
-     * Load a surface from a file.
+     * Load a /usr/share/code/resources/app/out/vs/code/electron-sandbox/workbench/workbench.htmlsurface from a file.
      * 
-     * Note: stream are supported.
+     * stream are supported.
      * @param  string|resource  $file
      * @return null|SDL_Surface
      */
-    public static function SDL_LoadBMP(string $file):null|SDL_Surface {
+    public static function LoadBMP(string $file):null|SDL_Surface {
         return null;
-    }
-
-    /**
-     * Destroy a window.
-     * @return void
-     */
-    public function FreeSurface():void {
     }
 
     /**
@@ -1196,29 +1520,6 @@ class SDL_Surface {
      */
     public function MUSTLOCK():bool {
         return true;
-    }
-
-    /**
-     * Sets up a surface for directly accessing the pixels.
-     *
-     * Between calls to `SDL_LockSurface()` / `SDL_UnlockSurface()`, you can write
-     * to and read from `$surface->pixels`, using the pixel format stored in
-     * `$surface->format`.  Once you are done accessing the surface, you should
-     * use `SDL_UnlockSurface()` to release it.
-     *
-     * Not all surfaces require locking.  If `SDL_MUSTLOCK($surface)` evaluates
-     * to 0, then you can read and write to the surface at any time, and the
-     * pixel format of the surface will not change.
-     *
-     * No operating system or library calls should be made between lock/unlock
-     * pairs, as critical system locks may be held during this time.
-     * @return int 0, or -1 if the surface couldn't be locked.
-     */
-    public function LockSurface():int {
-        return 0;
-    }
-
-    public function UnlockSurface():void {
     }
 
     /**
@@ -1322,7 +1623,7 @@ class SDL_Surface {
     /**
      * Perform a fast, low quality, stretch blit between two surfaces of the same pixel format.
      * 
-     * Note: This function uses a static buffer, and is not thread-safe.
+     * This function uses a static buffer, and is not thread-safe.
      * @param  SDL_Rect    $srcrect
      * @param  SDL_Surface $dst
      * @param  SDL_Rect    $dstrect
@@ -1351,7 +1652,7 @@ class SDL_Surface {
     }
 
     /**
-     * Note: stream are "partially" supported (only when `PHP_STREAM_AS_STDIO`).
+     * stream are "partially" supported (only when `PHP_STREAM_AS_STDIO`).
      * @param  string $path
      * @return int
      */
@@ -1359,18 +1660,6 @@ class SDL_Surface {
         string $path
     ):int {
         return 0;
-    }
-
-    /**
-     * Sets the RLE acceleration hint for a surface.
-     * 
-     * If RLE is enabled, colorkey and alpha blending blits are much faster, but the surface must be locked before directly accessing the pixels.
-     * @param  int  $flag
-     * @return void 0 on success, or -1 if the surface is not valid.
-     */
-    public function SetSurfaceRLE(
-        int $flag
-    ):void {
     }
 
     /**
@@ -1395,80 +1684,6 @@ class SDL_Surface {
      */
     public function GetColorKey(
         int &$key
-    ):int {
-        return 0;
-    }
-
-    /**
-     * Set an additional color value used in blit operations.
-     * @param  int $r The red color value multiplied into blit operations.
-     * @param  int $g The green color value multiplied into blit operations.
-     * @param  int $b The blue color value multiplied into blit operations.
-     * @return int 0 on success, or -1 if the surface is not valid.
-     */
-    public function SetSurfaceColorMod(
-        int $r,
-        int $g,
-        int $b
-    ):int {
-        return 0;
-    }
-
-    /**
-     * Get the additional color value used in blit operations.
-     * @param  int $r A pointer filled in with the current red color value.
-     * @param  int $g A pointer filled in with the current green color value.
-     * @param  int $b A pointer filled in with the current blue color value.
-     * @return int 0 on success, or -1 if the surface is not valid.
-     */
-    public function GetSurfaceColorMod(
-        int &$r,
-        int &$g,
-        int &$b
-    ):int {
-        return 0;
-    }
-
-    /**
-     * Set an additional alpha value used in blit operations.
-     * @param  int $alpha The alpha value multiplied into blit operations.
-     * @return int 0 on success, or -1 if the surface is not valid.
-     */
-    public function SetSurfaceAlphaMod(
-        int $alpha
-    ):int {
-        return 0;
-    }
-
-    /**
-     * Get the additional alpha value used in blit operations.
-     * @param  int $a A pointer filled in with the current alpha value.
-     * @return int 0 on success, or -1 if the surface is not valid.
-     */
-    public function GetSurfaceAlphaMod(
-        int &$a
-    ):int {
-        return 0;
-    }
-
-    /**
-     * Set the blend mode used for blit operations.
-     * @param  int $blendmode ::SDL_BlendMode to use for blit blending.
-     * @return int 0 on success, or -1 if the parameters are not valid.
-     */
-    public function SetSurfaceBlendMode(
-        int $blendmode,
-    ):int {
-        return 0;
-    }
-
-    /**
-     * Set the blend mode used for blit operations.
-     * @param  int $blendmode ::SDL_BlendMode to use for blit blending.
-     * @return int 0 on success, or -1 if the parameters are not valid.
-     */
-    public function GetSurfaceBlendMode(
-        int $blendmode,
     ):int {
         return 0;
     }
@@ -1505,41 +1720,104 @@ class SDL_Surface {
     ):void {
     }
 
-    /**
-     * Creates a new surface of the specified format, and then copies and maps
-     * the given surface to it so the blit of the converted surface will be as
-     * fast as possible.  If this function fails, it returns `NULL`.
-     *
-     * The `$flags` parameter is passed to `SDL_CreateRGBSurface()` and has those
-     * semantics.  You can also pass `::SDL_RLEACCEL` in the flags parameter and
-     * SDL will try to RLE accelerate colorkey and alpha blits in the resulting
-     * surface.
-     * @param  SDL_PixelFormat $format
-     * @param  int             $flag
-     * @return void
-     */
-    public function ConvertSurface(
-        SDL_PixelFormat $format,
-        int $flag
-    ):void {
-    }
-
-    /**
-     * 
-     * @param  int  $format
-     * @param  int  $flags
-     * @return void
-     */
-    public function ConvertSurfaceFormat(
-        int $format,
-        int $flags = 0
-    ):void {
+    public function __toString(): string {
+        return '';
     }
 }
 
 class SDL_GLContext implements Stringable {
     public function __construct(
         public SDL_Window $window,
+    ) {
+    }
+
+    public function __toString(): string {
+        return '';
+    }
+}
+
+class SDL_mutex implements Stringable {
+    public function __toString(): string {
+        return '';
+    }
+}
+
+class SDL_sem implements Stringable {
+    public function __construct(
+        public int $value
+    ) {
+    }
+
+    public function __toString(): string {
+        return '';
+    }
+}
+class SDL_cond implements Stringable {
+    public function __construct(
+        public int $value
+    ) {
+    }
+
+    public function __toString(): string {
+        return '';
+    }
+}
+class SDL_Pixels implements Stringable {
+    public function __construct(
+        public int $pitch,
+        public int $h,
+    ) {
+    }
+
+    public function count():int {
+        return 0;
+    }
+
+    public function offsetExists(int $offset): bool {
+        return true;
+    }
+
+    public function offsetGet(int $offset): false|int {
+        return false;
+    }
+
+    public function offsetUnset(int $offset): null|false {
+        return null;
+    }
+
+    public function offsetSet(
+        int $offset,
+        int $value
+    ): null|false {
+        return null;
+    }
+
+    public function GetByte(
+        int $x,
+        int $y,
+    ): false|int {
+        return false;
+    }
+
+    public function SetByte(
+        int $x,
+        int $y,
+        int $value,
+    ): false|int {
+        return false;
+    }
+
+    public function __toString(): string {
+        return '';
+    }
+}
+
+class SDL_DisplayMode implements Stringable {
+    public function __construct(
+        public int $format,
+        public int $w,
+        public int $h,
+        public int $refresh_rate,
     ) {
     }
 
@@ -1563,7 +1841,7 @@ function SDL_Init(int $flag):mixed {
  * @param  int             $y     The y position of the window, `SDL_WINDOWPOS_CENTERED`, or `SDL_WINDOWPOS_UNDEFINED`.
  * @param  int             $w     The width of the window.
  * @param  int             $h     The height of the window.
- * @param  int             $flags The flags for the window, a mask of `SDL_WINDOW_BORDERLESS` with any of the following: `SDL_WINDOW_OPENGL`, `SDL_WINDOW_INPUT_GRABBED`, `SDL_WINDOW_HIDDEN`, `SDL_WINDOW_RESIZABLE`, ::SDL_WINDOW_MAXIMIZED,  `SDL_WINDOW_MINIMIZED`, `SDL_WINDOW_BORDERLESS` is always set, and ::SDL_WINDOW_FULLSCREEN is always unset.
+ * @param  int             $flags The flags for the window, a mask of `SDL_WINDOW_BORDERLESS` with any of the following: `SDL_WINDOW_OPENGL`, `SDL_WINDOW_INPUT_GRABBED`, `SDL_WINDOW_HIDDEN`, `SDL_WINDOW_RESIZABLE`, ::SDL_WINDOW_MAXIMIZED,  `SDL_WINDOW_MINIMIZED`, `SDL_WINDOW_BORDERLESS` is always set, and `SDL_WINDOW_FULLSCREEN` is always unset.
  * @return null|SDL_Window The window created, or NULL if window creation failed. 
  */
 function SDL_CreateWindow(
@@ -1584,7 +1862,7 @@ function SDL_CreateWindow(
  * @param  int           $y     The y position of the window, `SDL_WINDOWPOS_CENTERED`, or `SDL_WINDOWPOS_UNDEFINED`.
  * @param  int           $w     The width of the window.
  * @param  int           $h     The height of the window.
- * @param  int           $flags The flags for the window, a mask of `SDL_WINDOW_BORDERLESS` with any of the following: `SDL_WINDOW_OPENGL`, `SDL_WINDOW_INPUT_GRABBED`, `SDL_WINDOW_HIDDEN`, `SDL_WINDOW_RESIZABLE`, ::SDL_WINDOW_MAXIMIZED,  `SDL_WINDOW_MINIMIZED`, `SDL_WINDOW_BORDERLESS` is always set, and ::SDL_WINDOW_FULLSCREEN is always unset.
+ * @param  int           $flags The flags for the window, a mask of `SDL_WINDOW_BORDERLESS` with any of the following: `SDL_WINDOW_OPENGL`, `SDL_WINDOW_INPUT_GRABBED`, `SDL_WINDOW_HIDDEN`, `SDL_WINDOW_RESIZABLE`, ::SDL_WINDOW_MAXIMIZED,  `SDL_WINDOW_MINIMIZED`, `SDL_WINDOW_BORDERLESS` is always set, and `SDL_WINDOW_FULLSCREEN` is always unset.
  * @return null|resource The window created, or NULL if window creation failed. 
  */
 function SDL_CreateShapedWindow(
@@ -1599,13 +1877,13 @@ function SDL_CreateShapedWindow(
 
 /**
  * 
- * @param  resource      $window The window where rendering is displayed.
+ * @param  SDL_Window    $window The window where rendering is displayed.
  * @param  int           $index  The index of the rendering driver to initialize, or -1 to initialize the first one supporting the requested flags.
  * @param  int           $flags  Check `SDL_RENDERER_*` constants.
  * @return null|resource A valid rendering context or NULL if there was an error.
  */
 function SDL_CreateRenderer(
-    mixed $window,
+    SDL_Window $window,
     int $index,
     int $flags
 ):mixed {
@@ -1614,7 +1892,7 @@ function SDL_CreateRenderer(
 /**
  * Create a texture from an existing surface.
  * 
- * Note: The surface is not modified or freed by this function.
+ * The surface is not modified or freed by this function.
  * @param  resource      $renderer
  * @param  SDL_Surface   $surface
  * @return null|resource
@@ -1632,12 +1910,16 @@ const SDL_WINDOW_LACKS_SHAPE     = -3;
 
 /**
  * Set the shape and parameters of a shaped window.
- * @param  resource            $window     The shaped window whose parameters should be set.
+ * @param  SDL_Window          $window     The shaped window whose parameters should be set.
  * @param  SDL_Surface         $shape      A surface encoding the desired shape for the window.
  * @param  SDL_WindowShapeMode $shape_mode The parameters to set for the shaped window.
  * @return int                 0 on success, `SDL_INVALID_SHAPE_ARGUMENT` on invalid an invalid shape argument, or `SDL_NONSHAPEABLE_WINDOW` if the `SDL_Window*` given does not reference a valid shaped window.
  */
-function SDL_SetWindowShape(mixed $window, SDL_Surface $shape, SDL_WindowShapeMode $shape_mode):int {
+function SDL_SetWindowShape(
+    SDL_Window $window,
+    SDL_Surface $shape,
+    SDL_WindowShapeMode $shape_mode
+):int {
     return 0;
 }
 
@@ -1711,10 +1993,10 @@ function SDL_DestroyRenderer(mixed $renderer):void {
 
 /**
  * Destroy a window.
- * @param  resource $window
+ * @param  SDL_Window $window
  * @return void
  */
-function SDL_DestroyWindow(mixed $window):void {
+function SDL_DestroyWindow(SDL_Window $window):void {
 }
 
 /**
@@ -1745,17 +2027,17 @@ const SDL_MESSAGEBOX_INFORMATION = 0x00000040;
 
 /**
  * Create a simple modal message box.
- * @param  int    $flags   Check `SDL_MESSAGEBOX_*` constants.
- * @param  string $title   UTF-8 title text.
- * @param  string $message UTF-8 message text.
- * @param  mixed  $window  The parent window, or NULL for no parent.
+ * @param  int             $flags   Check `SDL_MESSAGEBOX_*` constants.
+ * @param  string          $title   UTF-8 title text.
+ * @param  string          $message UTF-8 message text.
+ * @param  null|SDL_Window $window  The parent window, or NULL for no parent.
  * @return bool
  */
 function SDL_ShowSimpleMessageBox(
     int $flags,
     string $title,
     string $message,
-    mixed $window
+    null|SDL_Window $window = null
 ):bool {
     return true;
 }
@@ -1790,27 +2072,101 @@ function SDL_RenderDrawPointF(
     return 0;
 }
 
-function SDL_PointInRect(SDL_Point $p, SDL_Rect $r): bool {
+function SDL_PointInRect(
+    SDL_Point $p,
+    SDL_Rect $r
+): bool {
     return true;
 }
+
+/**
+ * Returns true if the rectangle has no area.
+ * @param  SDL_Rect $r
+ * @return bool
+ */
 function SDL_RectEmpty(SDL_Rect $r): bool {
     return true;
 }
-function SDL_RectEquals(SDL_Rect $a, SDL_Rect $b): bool {
+/**
+ * Returns true if the two rectangles are equal.
+ * @param  SDL_Rect $a
+ * @param  SDL_Rect $b
+ * @return bool
+ */
+function SDL_RectEquals(
+    SDL_Rect $a,
+    SDL_Rect $b
+): bool {
     return true;
 }
-function SDL_HasIntersection(SDL_Rect $A, SDL_Rect $B): bool {
+/**
+ * Determine whether two rectangles intersect.
+ * @param  SDL_Rect $A
+ * @param  SDL_Rect $B
+ * @return bool     `true` if there is an intersection, `false`` otherwise.
+ */
+function SDL_HasIntersection(
+    SDL_Rect $A,
+    SDL_Rect $B
+): bool {
     return true;
 }
-function SDL_IntersectRect(SDL_Rect $A, SDL_Rect $B, ?SDL_Rect &$result): bool {
+/**
+ * Calculate the intersection of two rectangles.
+ * @param  SDL_Rect      $A
+ * @param  SDL_Rect      $B
+ * @param  null|SDL_Rect $result
+ * @return bool          `true` if there is an intersection, `false` otherwise.
+ */
+function SDL_IntersectRect(
+    SDL_Rect $A,
+    SDL_Rect $B,
+    ?SDL_Rect &$result
+): bool {
     return true;
 }
+/**
+ * Calculate the union of two rectangles.
+ * @param  SDL_Rect      $A
+ * @param  SDL_Rect      $B
+ * @param  null|SDL_Rect $result
+ * @return void
+ */
 function SDL_UnionRect(SDL_Rect $A, SDL_Rect $B, ?SDL_Rect &$result): void {
 }
-function SDL_EnclosePoints(SDL_Point $points, int $count, SDL_Rect $clip, ?SDL_Rect &$result): bool {
+/**
+ * Calculate a minimal rectangle enclosing a set of points
+ * @param  SDL_Point       $points
+ * @param  int             $count
+ * @param  SDL_Rect        $clip
+ * @param  null|SDL_Rect   $result
+ * @return null|false|bool `true` if any points were within the clipping rect
+ */
+function SDL_EnclosePoints(
+    SDL_Point $points,
+    int $count,
+    SDL_Rect $clip,
+    ?SDL_Rect &$result
+): null|bool {
     return true;
 }
-function SDL_IntersectRectAndLine(SDL_Rect $rect, int &$X1, int &$Y1, int &$X2, int &$Y2): bool {
+
+/**
+ * Calculate the intersection of a rectangle and line segment.
+ * @param  SDL_Rect $rect
+ * @param  int      $X1
+ * @param  int      $Y1
+ * @param  int      $X2
+ * @param  int      $Y2
+ * @return bool
+ */
+function SDL_IntersectRectAndLine(
+    SDL_Rect $rect,
+    int &$X1,
+    int &$Y1,
+    int &$X2,
+    int &$Y2
+): bool {
     return true;
 }
 
@@ -1883,13 +2239,13 @@ function SDL_RenderDrawRectF(
 /**
  * Get the SDL surface associated with the window.
  * 
- * Note: You may not combine this with 3D or the rendering API on this window.
- * @param  mixed            $window
+ * You may not combine this with 3D or the rendering API on this window.
+ * @param  SDL_Window       $window
  * @return null|SDL_Surface The window's framebuffer surface, or NULL on error.
  *                                 A new surface will be created with the optimal format for the window,
  *                                 if necessary. This surface will be freed when the window is destroyed.
  */
-function SDL_GetWindowSurface(mixed $window):null|SDL_Surface {
+function SDL_GetWindowSurface(SDL_Window $window):null|SDL_Surface {
     return null;
 }
 
@@ -2080,7 +2436,7 @@ function SDL_LowerBlitScaled(
 /**
  * Perform a fast, low quality, stretch blit between two surfaces of the same pixel format.
  * 
- * Note: This function uses a static buffer, and is not thread-safe.
+ * This function uses a static buffer, and is not thread-safe.
  * @param  SDL_Surface $src
  * @param  SDL_Rect    $srcrect
  * @param  SDL_Surface $dst
@@ -2113,7 +2469,7 @@ function SDL_SaveBMP_RW(
 }
 
 /**
- * Note: stream are "partially" supported (only when `PHP_STREAM_AS_STDIO`).
+ * stream are "partially" supported (only when `PHP_STREAM_AS_STDIO`).
  * @param  SDL_Surface $src
  * @param  string      $path
  * @return int
@@ -2343,7 +2699,7 @@ function SDL_LoadBMP_RW(SDL_RWops $src, int $freesrc):null|SDL_Surface {
 /**
  * Load a surface from a file.
  * 
- * Note: stream are supported.
+ * stream are supported.
  * @param  string|resource  $file
  * @return null|SDL_Surface
  */
@@ -2369,10 +2725,10 @@ function SDL_UpdateWindowSurfaceRects(
 
 /**
  * Copy the window surface to the screen.
- * @param  mixed $window
- * @return int   0 on success, or -1 on error.
+ * @param  SDL_Window $window
+ * @return int        0 on success, or -1 on error.
  */
-function SDL_UpdateWindowSurface(mixed $window):int {
+function SDL_UpdateWindowSurface(SDL_Window $window):int {
     return 0;
 }
 
@@ -2408,7 +2764,7 @@ function SDL_FreeCursor(SDL_Cursor $cursor):void {
  */
 function SDL_SetWindowTitle(
     SDL_Window $window,
-    string $title
+    string $title,
 ):void {
 }
 
@@ -2880,7 +3236,8 @@ function SDL_GL_MakeCurrent(
  * @return SDL_Window
  */
 function SDL_GL_GetCurrentWindow():SDL_Window {
-    return new SDL_Window;
+    /** @var SDL_Window $o */
+    return $o;
 }
 
 /**
@@ -2888,7 +3245,8 @@ function SDL_GL_GetCurrentWindow():SDL_Window {
  * @return SDL_GLContext
  */
 function SDL_GL_GetCurrentContext():SDL_GLContext {
-    return new SDL_GLContext(new SDL_Window);
+    /** @var SDL_GLContext $o */
+    return $o;
 }
 
 /**
@@ -2939,7 +3297,8 @@ function SDL_GL_GetSwapInterval():int {
  * @return void
  */
 function SDL_GetKeyboardFocus():SDL_Window {
-    return new SDL_Window;
+    /** @var SDL_Window $o */
+    return $o;
 }
 
 /**
@@ -3080,6 +3439,1602 @@ function SDL_IsScreenKeyboardShown(
 }
 
 
-// messagebox.c
-function SDL_ShowMessageBox() {
+/**
+ * Create a modal message box.
+ * 
+ * This function should be called on the thread that created the parent window, or on the main thread if the messagebox has no parent. 
+ * It will block execution of that thread until the user clicks a button or closes the messagebox.
+ * @param  SDL_MessageBoxData $messageboxdata messageboxdata The SDL_MessageBoxData structure with title, text, etc.
+ * @param  int                $buttonid       buttonid The pointer to which user id of hit button should be copied.
+ * @return int                -1 on error, otherwise 0 and buttonid contains user id of button hit or -1 if dialog was closed.
+ */
+function SDL_ShowMessageBox(SDL_MessageBoxData $messageboxdata, int &$buttonid):int {
+    return 0;
+}
+
+/**
+ * Create a cursor, using the specified bitmap data and mask (in MSB format).
+ * 
+ * The cursor width must be a multiple of 8 bits.
+ * 
+ * The cursor is created in black and white according to the following:
+ * 
+ * | data | mask | resulting pixel on screen                 |
+ * |------|------|-------------------------------------------|
+ * | 0    | 1    | White                                     |
+ * | 1    | 1    | Black                                     |
+ * | 0    | 0    | Transparent                               |
+ * | 1    | 0    | Inverted color if possible, black if not. |
+ * 
+ * @param  string          $data
+ * @param  string          $mask
+ * @param  int             $w
+ * @param  int             $h
+ * @param  int             $hot_x
+ * @param  int             $hot_y
+ * @return null|SDL_Cursor
+ */
+function SDL_CreateCursor(
+    string $data,
+    string $mask,
+    int $w,
+    int $h,
+    int $hot_x,
+    int $hot_y
+): null|SDL_Cursor {
+    return null;
+}
+
+/**
+ * Create a color cursor.
+ * @param  SDL_Surface     $surface
+ * @param  int             $x
+ * @param  int             $y
+ * @return null|SDL_Cursor
+ */
+function SDL_CreateColorCursor(
+    SDL_Surface $surface,
+    int $x,
+    int $y,
+): null|SDL_Cursor {
+    return null;
+}
+
+/**
+ * Set the active cursor.
+ * @param  SDL_Cursor $cursor
+ * @return void
+ */
+function SDL_SetCursor(
+    SDL_Cursor $cursor,
+):void {
+}
+
+/**
+ * Return the active cursor.
+ * @return SDL_Cursor
+ */
+function SDL_GetCursor():SDL_Cursor {
+    return new SDL_Cursor('', 0, 0, 0, 0, 0);
+}
+
+
+/**
+ * Return the default cursor.
+ * @return SDL_Cursor
+ */
+function SDL_GetDefaultCursor():SDL_Cursor {
+    return new SDL_Cursor('', 0, 0, 0, 0, 0);
+}
+
+/**
+ * Toggle whether or not the cursor is shown.
+ * 
+ * @param  bool $toggle toggle 1 to show the cursor, 0 to hide it, -1 to query the current state.
+ * @return bool `true` if the cursor is shown, or `false` if the cursor is hidden.
+ */
+function SDL_ShowCursor(bool $toggle):bool {
+    return true;
+}
+
+/**
+ * Get the window which currently has mouse focus.
+ * @return SDL_Window
+ */
+function SDL_GetMouseFocus():SDL_Window {
+    /** @var SDL_Window $o */
+    return $o;
+}
+
+/**
+ * Retrieve the current state of the mouse.
+ * 
+ * The current button state is returned as a button bitmask, which can be tested using the `SDL_BUTTON(X)` macros (check the `C` documentation), and x and y are set to the mouse cursor position relative to the focus window for the currently selected mouse. 
+ * You can pass `NULL` for either x or y.
+ * @param  null|int $x
+ * @param  null|int $y
+ * @return int
+ */
+function SDL_GetMouseState(
+    null|int &$x = null,
+    null|int &$y = null,
+):int {
+    return 0;
+}
+
+/**
+ * Retrieve the relative state of the mouse.
+ * 
+ * The current button state is returned as a button bitmask, which can be tested using the `SDL_BUTTON(X)` macros (cehck the `C` documentation), and x and y are set to the mouse deltas since the last call to SDL_GetRelativeMouseState().
+ * @param  null|int $x
+ * @param  null|int $y
+ * @return int
+ */
+function SDL_GetRelativeMouseState(
+    null|int &$x = null,
+    null|int &$y = null,
+):int {
+    return 0;
+}
+
+/**
+ * Moves the mouse to the given position within the window.
+ * @param  SDL_Window $window The window to move the mouse into, or NULL for the current mouse focus.
+ * @param  int        $x      The x coordinate within the window.
+ * @param  int        $y      The y coordinate within the window.
+ * @return void
+ */
+function SDL_WarpMouseInWindow(
+    SDL_Window $window,
+    int $x,
+    int $y
+):void {
+}
+
+/**
+ * Set relative mouse mode.
+ * 
+ * While the mouse is in relative mode, the cursor is hidden, and the driver will try to report continuous motion in the current window. 
+ * Only relative motion events will be delivered, the mouse position will not change.
+ * 
+ * This function will flush any pending mouse motion.
+ * 
+ * @param  bool $enabled Whether or not to enable relative mode.
+ * @return int  0 on success, or -1 if relative mode is not supported.
+ */
+function SDL_SetRelativeMouseMode(bool $enabled):int {
+    return 0;
+}
+
+/**
+ * Query whether relative mouse mode is enabled.
+ * @return bool
+ */
+function SDL_GetRelativeMouseMode():bool {
+    return true;
+}
+
+
+/**
+ * Create a mutex, initialized unlocked.
+ * @return SDL_mutex
+ */
+function SDL_CreateMutex():SDL_mutex {
+    return new SDL_mutex;
+}
+
+/**
+ * Lock the mutex.
+ * @param  SDL_mutex $mutex
+ * @return int       0, or -1 on error.
+ */
+function SDL_LockMutex(SDL_mutex $mutex):int {
+    return 0;
+}
+
+/**
+ * Try to lock the mutex
+ * @param  SDL_mutex $mutex
+ * @return int       0, SDL_MUTEX_TIMEDOUT, or -1 on error
+ */
+function SDL_TryLockMutex(SDL_mutex $mutex):int {
+    return 0;
+}
+
+/**
+ * Unlock the mutex.
+ * 
+ * WARNING: It is an error to unlock a mutex that has not been locked by the current thread, and doing so results in undefined behavior.
+ * @param  SDL_mutex $mutex
+ * @return int       0, or -1 on error.
+ */
+function SDL_UnlockMutex(SDL_mutex $mutex):int {
+    return 0;
+}
+
+/**
+ * Destroy a mutex.
+ * @param  SDL_mutex $mutex
+ * @return void
+ */
+function SDL_DestroyMutex(SDL_mutex $mutex):void {
+}
+
+/**
+ * Create a semaphore, initialized with value, returns NULL on failure.
+ * @param  int          $value
+ * @return null|SDL_sem
+ */
+function SDL_CreateSemaphore(int $value): null|SDL_sem {
+    return null;
+}
+
+/**
+ * This function suspends the calling thread until the semaphore pointed to by `$sem` has a positive count.
+ * It then atomically decreases the semaphore count.
+ * @param  SDL_sem $sem
+ * @return int
+ */
+function SDL_SemWait(SDL_sem $sem):int {
+    return 0;
+}
+
+
+/**
+ * Non-blocking variant of SDL_SemWait().
+ * @param  SDL_sem $sem
+ * @return int     0 if the wait succeeds, `SDL_MUTEX_TIMEDOUT` if the wait would block, and -1 on error.
+ */
+function SDL_SemTryWait(SDL_sem $sem):int {
+    return 0;
+}
+
+/**
+ * Atomically increases the semaphore's count (not blocking).
+ * @param  SDL_sem $sem
+ * @return int     0, or -1 on error.
+ */
+function SDL_SemPost(SDL_sem $sem):int {
+    return 0;
+}
+
+/**
+ * Returns the current count of the semaphore.
+ * @param  SDL_sem $sem
+ * @return int
+ */
+function SDL_SemValue(SDL_sem $sem):int {
+    return 0;
+}
+
+/**
+ * Variant of SDL_SemWait() with a timeout in milliseconds.
+ * 
+ * On some platforms this function is implemented by looping with a delay of 1 ms, and so should be avoided if possible.
+ * @param  SDL_sem $sem
+ * @param  int     $ms
+ * @return int     0 if the wait succeeds, `SDL_MUTEX_TIMEDOUT` if the wait does not succeed in the allotted time, and -1 on error.
+ */
+function SDL_SemWaitTimeout(SDL_sem $sem, int $ms):int {
+    return 0;
+}
+
+/**
+ * Destroy a semaphore.
+ * @param  SDL_sem $sem
+ * @return void
+ */
+function SDL_DestroySemaphore(SDL_sem $sem):void {
+}
+
+/**
+ * Create a condition variable.
+ * 
+ * Typical use of condition variables:
+ *
+ * Thread A:
+ * ```c
+ * SDL_LockMutex(lock);
+ * while ( ! condition ) {
+ *     SDL_CondWait(cond, lock);
+ * }
+ * SDL_UnlockMutex(lock);
+ * ```
+ *
+ * Thread B:
+ * ```c
+ * SDL_LockMutex(lock);
+ * ...
+ * condition = true;
+ * ...
+ * SDL_CondSignal(cond);
+ * SDL_UnlockMutex(lock);
+ * ```
+ *
+ * There is some discussion whether to signal the condition variable
+ * with the mutex locked or not.  There is some potential performance
+ * benefit to unlocking first on some platforms, but there are some
+ * potential race conditions depending on how your code is structured.
+ * 
+ * In general it's safer to signal the condition variable while the
+ * mutex is locked.
+ * @param  int      $value
+ * @return SDL_cond
+ */
+function SDL_CreateCond(int $value):SDL_cond {
+    return new SDL_cond(0);
+}
+
+/**
+ * Wait on the condition variable, unlocking the provided mutex.
+ * 
+ * WARNING: The mutex must be locked before entering this function!
+ * 
+ * The mutex is re-locked once the condition variable is signaled.
+ * @param  SDL_cond  $condition
+ * @param  SDL_mutex $mutex
+ * @return int       0 when it is signaled, or -1 on error.
+ */
+function SDL_CondWait(
+    SDL_cond $condition,
+    SDL_mutex $mutex
+):int {
+    return 0;
+}
+
+/**
+ * Restart one of the threads that are waiting on the condition variable.
+ * @param  SDL_cond $cond
+ * @return int      0 or -1 on error.
+ */
+function SDL_CondSignal(SDL_cond $cond):int {
+    return 0;
+}
+
+/**
+ * Restart all threads that are waiting on the condition variable.
+ * @param  SDL_cond $cond
+ * @return int      0 or -1 on error.
+ */
+function SDL_CondBroadcast(SDL_cond $cond):int {
+    return 0;
+}
+
+/**
+ * Waits for at most \c ms milliseconds, and returns 0 if the condition variable is signaled, `SDL_MUTEX_TIMEDOUT` if the condition is not signaled in the allotted time, and -1 on error.
+ * 
+ * WARNING: On some platforms this function is implemented by looping with a delay of 1 ms, and so should be avoided if possible.
+ * @param  SDL_cond  $cond
+ * @param  SDL_mutex $mutex
+ * @param  int       $ms
+ * @return int
+ */
+function SDL_CondWaitTimeout(SDL_cond $cond, SDL_mutex $mutex, int $ms):int {
+    return 0;
+}
+
+/**
+ * Destroy a condition variable.
+ * @param  SDL_cond $cond
+ * @return void
+ */
+function SDL_DestroyCond(SDL_cond $cond):void {
+}
+
+/**
+ * Get the human readable name of a pixel format.
+ * @param  int    $format
+ * @return string
+ */
+function SDL_GetPixelFormatName(int $format):string {
+    return '';
+}
+
+/**
+ * Convert one of the enumerated pixel formats to a bpp and RGBA masks.
+ * @param  int  $format
+ * @param  int  $bpp
+ * @param  int  $Rmask
+ * @param  int  $Gmask
+ * @param  int  $Bmask
+ * @param  int  $Amask
+ * @return bool `true`, or `false` if the conversion wasn't possible.
+ */
+function SDL_PixelFormatEnumToMasks(
+    int $format,
+    int &$bpp,
+    int &$Rmask,
+    int &$Gmask,
+    int &$Bmask,
+    int &$Amask
+):bool {
+    return true;
+}
+
+/**
+ * Convert a bpp and RGBA masks to an enumerated pixel format.
+ * @param  int  $format
+ * @param  int  $bpp
+ * @param  int  $Rmask
+ * @param  int  $Gmask
+ * @param  int  $Bmask
+ * @param  int  $Amask
+ * @return bool The pixel format, or `SDL_PIXELFORMAT_UNKNOWN` if the conversion wasn't possible.
+ */
+function SDL_MasksToPixelFormatEnum(
+    int $format,
+    int $bpp,
+    int $Rmask,
+    int $Gmask,
+    int $Bmask,
+    int $Amask
+):bool {
+    return true;
+}
+
+/**
+ * Create an SDL_PixelFormat structure from a pixel format enum.
+ * @param  int             $ncolors
+ * @return SDL_PixelFormat
+ */
+function SDL_AllocFormat(int $ncolors):SDL_PixelFormat {
+    /** @var SDL_PixelFormat $o*/
+    $o = new stdClass;
+    return $o;
+}
+
+/**
+ * Set the palette for a pixel format structure.
+ * @param  SDL_PixelFormat $format
+ * @param  SDL_Palette     $palette
+ * @return int
+ */
+function SDL_SetPixelFormatPalette(
+    SDL_PixelFormat $format,
+    SDL_Palette $palette
+):int {
+    return 0;
+}
+
+/**
+ * Set a range of colors in a palette.
+ * @param  SDL_Palette $palette The palette to modify.
+ * @param  array       $colors  An array of colors to copy into the palette.
+ * @param  int         $first   The index of the first palette entry to modify.
+ * @param  int         $ncolors The number of entries to modify.
+ * @return int         0 on success, or -1 if not all of the colors could be set.
+ */
+function SDL_SetPaletteColors(
+    SDL_Palette $palette,
+    array $colors,
+    int $first,
+    int $ncolors
+):int {
+    return 0;
+}
+
+/**
+ * Get the RGB components from a pixel of the specified format.
+ * @param  int             $pixel
+ * @param  SDL_PixelFormat $format
+ * @param  int             $r
+ * @param  int             $g
+ * @param  int             $b
+ * @return void
+ */
+function SDL_GetRGB(
+    int $pixel,
+    SDL_PixelFormat $format,
+    int &$r,
+    int &$g,
+    int &$b
+):void {
+}
+
+/**
+ * Get the RGBA components from a pixel of the specified format.
+ * @param  int             $pixel
+ * @param  SDL_PixelFormat $format
+ * @param  int             $r
+ * @param  int             $g
+ * @param  int             $b
+ * @param  int             $a
+ * @return void
+ */
+function SDL_GetRGBA(
+    int $pixel,
+    SDL_PixelFormat $format,
+    int &$r,
+    int &$g,
+    int &$b,
+    int &$a
+):void {
+}
+
+/**
+ * Calculate a 256 entry gamma ramp for a gamma value.
+ * @param  float $gamma
+ * @param  array $ramp
+ * @return void
+ */
+function SDL_CalculateGammaRamp(float $gamma, array &$ramp):void {
+}
+
+/**
+ * Gets the name of the platform.
+ * @return string
+ */
+function SDL_GetPlatform():string {
+    return '';
+}
+
+/**
+ * Get the current power supply details.
+ * @param  null|int $sec Seconds of battery life left. You can pass a `NULL` here if
+ *                       you don't care. Will return -1 if we can't determine a
+ *                       value, or we're not running on a battery.
+ * @param  null|int $pct Percentage of battery life left, between 0 and 100. You can
+ *                       pass a NULL here if you don't care. Will return -1 if we
+ *                       can't determine a value, or we're not running on a battery.
+ * @return string   The state of the battery (if any).
+ */
+function SDL_GetPowerInfo(null|int &$sec = null, null|int &$pct = null):string {
+    return '';
+}
+
+/**
+ * 
+ * @param  resource      $renderer
+ * @param  int           $format
+ * @param  int           $access
+ * @param  int           $w
+ * @param  int           $h
+ * @return null|resource
+ */
+function SDL_CreateTexture(
+    mixed $renderer,
+    int $format,
+    int $access,
+    int $w,
+    int $h,
+):mixed {
+}
+
+/**
+ * 
+ * @param  resource $renderer
+ * @param  resource $texture
+ * @return null|int
+ */
+function SDL_SetRenderTarget(
+    mixed $renderer,
+    mixed $texture,
+):null|int {
+    return null;
+}
+
+/**
+ * 
+ * @param  resource $renderer
+ * @param  null|int $width
+ * @param  null|int $height
+ * @return resource
+ */
+function SDL_GetRendererOutputSize(
+    mixed $renderer,
+    null|int &$width = null,
+    null|int &$height = null,
+):mixed {
+}
+
+
+/**
+ * 
+ * @param  resource $texture
+ * @param  null|int $format
+ * @param  null|int $access
+ * @param  null|int $width
+ * @param  null|int $height
+ * @return int
+ */
+function SDL_QueryTexture(
+    mixed $texture,
+    null|int &$format = null,
+    null|int &$access = null,
+    null|int &$width = null,
+    null|int &$height = null,
+):int {
+    return 0;
+}
+
+/**
+ * 
+ * @return SDL_RWops
+ */
+function SDL_AllocRW():SDL_RWops {
+    /** @var SDL_RWops */
+    $o = new stdClass;
+    return $o;
+}
+
+/**
+ * 
+ * @param  string    $path
+ * @param  string    $mode
+ * @return SDL_RWops
+ */
+function SDL_RWFromFile(
+    string $path,
+    string $mode,
+):SDL_RWops {
+    /** @var SDL_RWops */
+    $o = new stdClass;
+    return $o;
+}
+
+/**
+ * 
+ * @param  string    $buf
+ * @param  int       $size
+ * @return SDL_RWops
+ */
+function SDL_RWFromConstMem(
+    string $buf,
+    int $size,
+):SDL_RWops {
+    /** @var SDL_RWops */
+    $o = new stdClass;
+    return $o;
+}
+
+
+/**
+ * 
+ * @param  string    $buf
+ * @param  int       $size
+ * @return SDL_RWops
+ */
+function SDL_RWFromMem(
+    string &$buf,
+    int $size
+):SDL_RWops {
+    /** @var SDL_RWops */
+    $o = new stdClass;
+    return $o;
+}
+
+/**
+ * PHP change: this function support PHP stream
+ * SDL_RWFromFP will be used for real file
+ * SDL_RWFromMem will be used for other stream
+ * (inspired from gd extension)
+ * @param  resource  $fp
+ * @param  bool      $autoclose
+ * @return SDL_RWops
+ */
+function SDL_RWFromFP(
+    mixed $fp,
+    bool $autoclose,
+):SDL_RWops {
+    /** @var SDL_RWops */
+    $o = new stdClass;
+    return $o;
+}
+
+/**
+ * 
+ * @param  SDL_RWops $area
+ * @return void
+ */
+function SDL_FreeRW(SDL_RWops $area):void {
+}
+
+/**
+ * 
+ * @param  SDL_RWops $area
+ * @return int
+ */
+function SDL_RWsize(SDL_RWops $area):int {
+    return 0;
+}
+
+/**
+ * 
+ * @param  SDL_RWops $area
+ * @param  int       $offset
+ * @param  int       $whence
+ * @return int
+ */
+function SDL_RWseek(
+    SDL_RWops $area,
+    int $offset,
+    int $whence
+):int {
+    return 0;
+}
+
+/**
+ * 
+ * @param  SDL_RWops $area
+ * @return int
+ */
+function SDL_RWtell(SDL_RWops $area):int {
+    return 0;
+}
+
+/**
+ * 
+ * @param  SDL_RWops $area
+ * @return int
+ */
+function SDL_RWclose(SDL_RWops $area):int {
+    return 0;
+}
+
+/**
+ * 
+ * @param  SDL_RWops $area
+ * @param  string    $string
+ * @param  mixed     $buf
+ * @param  int       $size
+ * @param  int       $n
+ * @return int
+ */
+function SDL_RWread(
+    SDL_RWops $area,
+    string &$buf,
+    int $size = 1,
+    int $n = 0
+):int {
+    return 0;
+}
+
+/**
+ * 
+ * @param  SDL_RWops $area
+ * @param  string    $buf
+ * @param  int       $size
+ * @param  int       $n
+ * @return int
+ */
+function SDL_RWwrite(
+    SDL_RWops $area,
+    string $buf,
+    int $size = 0,
+    int $n = 0
+): int {
+    return 0;
+}
+
+/**
+ * Read endian functions.
+ * @param  SDL_RWops $area
+ * @return int
+ */
+function SDL_ReadU8(SDL_RWops $area):int {
+    return 0;
+}
+
+/**
+ * 
+ * @param  SDL_RWops $area
+ * @return int
+ */
+function SDL_ReadLE16(SDL_RWops $area): int {
+    return 0;
+}
+
+/**
+ * 
+ * @param  SDL_RWops $area
+ * @return int
+ */
+function SDL_ReadBE16(SDL_RWops $area):int {
+    return 0;
+}
+
+/**
+ * 
+ * @param  SDL_RWops $area
+ * @return int
+ */
+function SDL_ReadLE32(SDL_RWops $area):int {
+    return 0;
+}
+
+/**
+ * 
+ * @param  SDL_RWops $area
+ * @return int
+ */
+function SDL_ReadBE32(SDL_RWops $area):int {
+    return 0;
+}
+
+function SDL_ReadLE64(SDL_RWops $area): int {
+    return 0;
+}
+
+/**
+ * 
+ * @param  SDL_RWops $area
+ * @return int
+ */
+function SDL_ReadBE64(SDL_RWops $area):int {
+    return 0;
+}
+
+/**
+ * Write endian functions.
+ * 
+ * Write an item of native format to the specified endianness.
+ * @param  SDL_RWops $area
+ * @param  int       $value
+ * @return int
+ */
+function SDL_WriteU8(
+    SDL_RWops $area,
+    int $value
+):int {
+    return 0;
+}
+
+/**
+ * 
+ * @param  SDL_RWops $area
+ * @param  int       $value
+ * @return int
+ */
+function SDL_WriteLE16(
+    SDL_RWops $area,
+    int $value
+):int {
+    return 0;
+}
+
+/**
+ * 
+ * @param  SDL_RWops $area
+ * @param  int       $value
+ * @return int
+ */
+function SDL_WriteBE16(
+    SDL_RWops $area,
+    int $value
+):int {
+    return 0;
+}
+
+/**
+ * 
+ * @param  SDL_RWops $area
+ * @param  int       $value
+ * @return int
+ */
+function SDL_WriteLE32(
+    SDL_RWops $area,
+    int $value
+): int {
+    return 0;
+}
+
+/**
+ * 
+ * @param  SDL_RWops $area
+ * @param  int       $value
+ * @return int
+ */
+function SDL_WriteBE32(
+    SDL_RWops $area,
+    int $value
+):int {
+    return 0;
+}
+
+/**
+ * 
+ * @param  SDL_RWops $area
+ * @param  int       $value
+ * @return int
+ */
+function SDL_WriteLE64(
+    SDL_RWops $area,
+    int $value
+): int {
+    return 0;
+}
+
+/**
+ * 
+ * @param  SDL_RWops $area
+ * @param  int       $value
+ * @return int
+ */
+function SDL_WriteBE64(
+    SDL_RWops $area,
+    int $value
+): int {
+    return 0;
+}
+
+/**
+ * This function cleans up all initialized subsystems. 
+ * You should call it upon all exit conditions.
+ * @param  int $flags
+ * @return int
+ */
+function SDL_InitSubSystem(int $flags):int {
+    return 0;
+}
+
+/**
+ * This function cleans up specific SDL subsystems.
+ * @param  int $flags
+ * @return int
+ */
+function SDL_QuitSubSystem(int $flags):int {
+    return 0;
+}
+
+/**
+ * This function returns a mask of the specified subsystems which have previously been initialized.
+ * 
+ * If `$flags` is 0, it returns a mask of all initialized subsystems.
+ * @param  int $flags
+ * @return int
+ */
+function SDL_WasInit(int $flags):int {
+    return 0;
+}
+
+/**
+ * Copy a block of pixels of one format to another format.
+ * @param  int        $width
+ * @param  int        $height
+ * @param  int        $src_format
+ * @param  SDL_Pixels $src
+ * @param  int        $src_pitch
+ * @param  int        $dst_format
+ * @param  SDL_Pixels $dst
+ * @param  int        $dst_pitch
+ * @return int        0 on success, or -1 if there was an error.
+ */
+function SDL_ConvertPixels(
+    int $width,
+    int $height,
+    int $src_format,
+    SDL_Pixels $src,
+    int $src_pitch,
+    int $dst_format,
+    SDL_Pixels $dst,
+    int $dst_pitch
+):int {
+    return 0;
+}
+
+/**
+ * Get the code revision of SDL that is linked against your program.
+ * 
+ * Returns an arbitrary string (a hash value) uniquely identifying the
+ * exact revision of the SDL library in use, and is only useful in comparing
+ * against other revisions. It is NOT an incrementing number.
+ * @return string
+ */
+function SDL_GetRevision():string {
+    return '';
+}
+
+/**
+ * Get the revision number of SDL that is linked against your program.
+ * 
+ * Returns a number uniquely identifying the exact revision of the SDL
+ * library in use. It is an incrementing number based on commits to
+ * hg.libsdl.org.
+ * @return int
+ */
+function SDL_GetRevisionNumber():int {
+    return 0;
+}
+
+/**
+ * Macro to determine SDL version program was compiled against.
+ * 
+ * This macro fills in a SDL_version structure with the version of the
+ * library you compiled against. This is determined by what header the
+ * compiler uses. Note that if you dynamically linked the library, you might
+ * have a slightly newer or older version at runtime. That version can be
+ * determined with SDL_GetVersion(), which, unlike SDL_VERSION(),
+ * is not a macro.
+ * @param  array $version a SDL_version struct to initialize.
+ * @return void
+ */
+function SDL_VERSION(array &$version):void {
+}
+
+/**
+ * This macro turns the version numbers into a numeric value: (1,2,3) -> (1203)
+ * 
+ * This assumes that there will never be more than 100 patchlevels.
+ * @param  int $x
+ * @param  int $y
+ * @param  int $z
+ * @return int
+ */
+function SDL_VERSIONNUM(
+    int $x,
+    int $y,
+    int $z
+):int {
+    return 0;
+}
+
+/**
+ * This macro will evaluate to true if compiled with SDL at least X.Y.Z.
+ * @param  int  $x
+ * @param  int  $y
+ * @param  int  $z
+ * @return bool
+ */
+function SDL_VERSION_ATLEAST(
+    int $x,
+    int $y,
+    int $z
+):bool {
+    return true;
+}
+
+/**
+ * Get the number of video drivers compiled into SDL.
+ * @return int
+ */
+function SDL_GetNumVideoDrivers():int {
+    return 0;
+}
+
+
+/**
+ * Get the name of a built in video driver.
+ * 
+ * The video drivers are presented in the order in which they are normally checked during initialization.
+ * @param  int    $driverIndex
+ * @return string
+ */
+function SDL_GetVideoDriver(int $driverIndex): string {
+    return '';
+}
+
+/**
+ * Initialize the video subsystem, optionally specifying a video driver.
+ * 
+ * This function initializes the video subsystem; setting up a connection
+ * to the window manager, etc, and determines the available display modes
+ * and pixel formats, but does not initialize a window or graphics mode.
+ * @param  null|string $driver Initialize a specific driver by name, or NULL for the default video driver.
+ * @return string      0 on success, -1 on error.
+ */
+function SDL_VideoInit(null|string $driver = null):int {
+    return 0;
+}
+
+/**
+ * Shuts down the video subsystem.
+ * 
+ * This function closes all windows, and restores the original video mode.
+ * @return void
+ */
+function SDL_VideoQuit():void {
+}
+
+/**
+ * Returns the name of the currently initialized video driver.
+ * @return string The name of the current video driver or NULL if no driver has been initialized.
+ */
+function SDL_GetCurrentVideoDriver():string {
+    return '';
+}
+
+/**
+ * Returns the number of available video displays.
+ * @return int
+ */
+function SDL_GetNumVideoDisplays():int {
+    return 0;
+}
+
+/**
+ * Get the name of a display in UTF-8 encoding.
+ * @param  int    $displayIndex
+ * @return string The name of a display, or NULL for an invalid display index.
+ */
+function SDL_GetDisplayName(int $displayIndex):string {
+    return '';
+}
+
+/**
+ * Get the desktop area represented by a display, with the primary display located at 0,0.
+ * @param  int      $displayIndex
+ * @param  SDL_Rect $rect
+ * @return array    0 on success, or -1 if the index is out of range.
+ */
+function SDL_GetDisplayBounds(
+    int $displayIndex,
+    SDL_Rect &$rect
+):array {
+    return [];
+}
+
+/**
+ * Returns the number of available display modes.
+ * @param  int $displayIndex
+ * @return int
+ */
+function SDL_GetNumDisplayModes(int $displayIndex):int {
+    return 0;
+}
+
+/**
+ * Fill in information about a specific display mode.
+ * 
+ * The display modes are sorted in this priority:
+ *    - bits per pixel -> more colors to fewer colors
+ *    - width -> largest to smallest
+ *    - height -> largest to smallest
+ *    - refresh rate -> highest to lowest
+ * @param  int   $displayIndex
+ * @param  int   $modeIndex
+ * @return array
+ */
+function SDL_GetDisplayMode(
+    int $displayIndex,
+    int $modeIndex
+):array {
+    return [];
+}
+
+/**
+ * Fill in information about the desktop display mode.
+ * @param  int   $displayIndex
+ * @return array
+ */
+function SDL_GetDesktopDisplayMode(int $displayIndex):array {
+    return [];
+}
+
+/**
+ * Fill in information about the current display mode.
+ * @param  int   $displayIndex
+ * @return array
+ */
+function SDL_GetCurrentDisplayMode(int $displayIndex):array {
+    return[];
+}
+
+/**
+ * Get the closest match to the requested display mode.
+ * 
+ * The available display modes are scanned, and `$closest` is filled in with the
+ * closest mode matching the requested mode and returned.  The mode format and
+ * refresh_rate default to the desktop mode if they are 0.  The modes are
+ * scanned with size being first priority, format being second priority, and
+ * finally checking the refresh_rate.  If all the available modes are too
+ * small, then `NULL` is returned.
+ * @param  int                  $displayIndex The index of display from which mode should be queried.
+ * @param  SDL_DisplayMode      $mode         The desired display mode.
+ * @param  SDL_DisplayMode      $closest      A pointer to a display mode to be filled in with the closest match of the available display modes.
+ * @return null|SDL_DisplayMode The passed in value `$closest`, or `NULL` if no matching video mode was available.
+ */
+function SDL_GetClosestDisplayMode(
+    int $displayIndex,
+    SDL_DisplayMode $mode,
+    SDL_DisplayMode $closest
+):null|SDL_DisplayMode {
+    return null;
+}
+
+/**
+ * Returns whether the screensaver is currently enabled (default on).
+ * @return bool
+ */
+function SDL_IsScreenSaverEnabled():bool {
+    return true;
+}
+
+/**
+ * Allow the screen to be blanked by a screensaver.
+ * @return void
+ */
+function SDL_EnableScreenSaver():void {
+}
+
+/**
+ * Prevent the screen from being blanked by a screensaver.
+ * @return void
+ */
+function SDL_DisableScreenSaver():void {
+}
+
+/**
+ * Get the display index associated with a window.
+ * @param  SDL_Window $window
+ * @return void       The display index of the display containing the center of the window, or -1 on error.
+ */
+function SDL_GetWindowDisplayIndex(SDL_Window $window):void {
+}
+
+/**
+ * Set the display mode used when a fullscreen window is visible.
+ * 
+ * By default the window's dimensions and the desktop format and refresh rate
+ *  are used.
+ * @param  SDL_Window      $window The window for which the display mode should be set.
+ * @param  SDL_DisplayMode $mode   The mode to use, or NULL for the default mode.
+ * @return int             0 on success, or -1 if setting the display mode failed.
+ */
+function SDL_SetWindowDisplayMode(
+    SDL_Window $window,
+    SDL_DisplayMode $mode
+):int {
+    return 0;
+}
+
+/**
+ * Fill in information about the display mode used when a fullscreen window is visible.
+ * @param  SDL_Window      $window
+ * @param  SDL_DisplayMode $mode
+ * @return int
+ */
+function SDL_GetWindowDisplayMode(
+    SDL_Window $window,
+    SDL_DisplayMode $mode
+):int {
+    return 0;
+}
+
+/**
+ * Get the pixel format associated with the window.
+ * @param  SDL_Window $window
+ * @return int
+ */
+function SDL_GetWindowPixelFormat(SDL_Window $window):int {
+    return 0;
+}
+
+/**
+ * Get the numeric ID of a window, for logging purposes.
+ * @param  SDL_Window $window
+ * @return int
+ */
+function SDL_GetWindowID(SDL_Window $window): int {
+    return 0;
+}
+
+/**
+ * Get the window flags.
+ * @param  SDL_Window $window
+ * @return int
+ */
+function SDL_GetWindowFlags(SDL_Window $window):int {
+    return 0;
+}
+
+/**
+ * Set the icon for a window.
+ * @param  SDL_Window  $window The window for which the icon should be set.
+ * @param  SDL_Surface $icon   The icon for the window.
+ * @return void
+ */
+function SDL_SetWindowIcon(
+    SDL_Window $window,
+    SDL_Surface $icon
+):void {
+}
+
+/**
+ * Set the position of a window.
+ * 
+ * The window coordinate origin is the upper left of the display.
+ * @param  SDL_Window $window The window to reposition.
+ * @param  int        $x      The x coordinate of the window, `SDL_WINDOWPOS_CENTERED`, or `SDL_WINDOWPOS_UNDEFINED`.
+ * @param  int        $y      The y coordinate of the window, `SDL_WINDOWPOS_CENTERED`, or `SDL_WINDOWPOS_UNDEFINED`.
+ * @return void
+ */
+function SDL_SetWindowPosition(
+    SDL_Window $window,
+    int $x,
+    int $y
+):void {
+}
+
+/**
+ * 
+ * @param  int $display
+ * @return int
+ */
+function SDL_WINDOWPOS_CENTERED_DISPLAY(int $display):int {
+    return 0;
+}
+
+/**
+ * 
+ * @param  int $display
+ * @return int
+ */
+function SDL_WINDOWPOS_UNDEFINED_DISPLAY(int $display):int {
+    return 0;
+}
+
+/**
+ * Get the position of a window.
+ * 
+ * @param  SDL_Window $window The window to query.
+ * @param  null|int   $x      Pointer to variable for storing the x position, may be `NULL`.
+ * @param  null|int   $y      Pointer to variable for storing the y position, may be `NULL`.
+ * @return void
+ */
+function SDL_GetWindowPosition(
+    SDL_Window $window,
+    null|int &$x = null,
+    null|int &$y = null,
+):void {
+}
+
+/**
+ * Set the size of a window's client area.
+ * You can't change the size of a fullscreen window, it automatically matches the size of the display mode.
+ * @param  SDL_Window $window The window to resize.
+ * @param  int        $x      The width of the window, must be >0.
+ * @param  int        $y      The height of the window, must be >0.
+ * @return void
+ */
+function SDL_SetWindowSize(
+    SDL_Window $window,
+    int $x,
+    int $y,
+):void {
+}
+
+/**
+ * Get the size of a window's client area.
+ * @param  SDL_Window $window The window to query.
+ * @param  null|int   $x      Pointer to variable for storing the width, may be `NULL`.
+ * @param  null|int   $y      Pointer to variable for storing the height, may be `NULL`.
+ * @return void
+ */
+function SDL_GetWindowSize(
+    SDL_Window $window,
+    null|int &$x = null,
+    null|int &$y = null,
+):void {
+}
+
+/**
+ * Set the minimum size of a window's client area.
+ * 
+ * You can't change the minimum size of a fullscreen window, it automatically matches the size of the display mode.
+ * @param  SDL_Window $window The window to set a new minimum size.
+ * @param  int        $x      The minimum width of the window, must be >0.
+ * @param  int        $y      The minimum height of the window, must be >0.
+ * @return void
+ */
+function SDL_SetWindowMinimumSize(
+    SDL_Window $window,
+    int $x,
+    int $y,
+):void {
+}
+
+/**
+ * Get the minimum size of a window's client area.
+ * @param  SDL_Window $window The window to query.
+ * @param  null|int   $x      Pointer to variable for storing the minimum width, may be `NULL`.
+ * @param  null|int   $y      Pointer to variable for storing the minimum height, may be `NULL`.
+ * @return void
+ */
+function SDL_GetWindowMinimumSize(
+    SDL_Window $window,
+    null|int &$x = null,
+    null|int &$y = null,
+):void {
+}
+
+/**
+ * Set the maximum size of a window's client area.
+ * 
+ * You can't change the maximum size of a fullscreen window, it automatically matches the size of the display mode.
+ * @param  SDL_Window $window The window to set a new maximum size.
+ * @param  int        $x      The maximum width of the window, must be >0.
+ * @param  int        $y      The maximum height of the window, must be >0.
+ * @return void
+ */
+function SDL_SetWindowMaximumSize(
+    SDL_Window $window,
+    int $x,
+    int $y,
+):void {
+}
+
+/**
+ * Get the maximum size of a window's client area.
+ * @param  SDL_Window $window The window to query.
+ * @param  null|int   $x      Pointer to variable for storing the maximum width, may be `NULL`.
+ * @param  null|int   $y      Pointer to variable for storing the maximum height, may be `NULL`.
+ * @return void
+ */
+function SDL_GetWindowMaximumSize(
+    SDL_Window $window,
+    null|int &$x = null,
+    null|int &$y = null,
+):void {
+}
+
+/**
+ * Set the border state of a window.
+ * 
+ * This will add or remove the window's `SDL_WINDOW_BORDERLESS` flag and
+ * add or remove the border from the actual window. This is a no-op if the
+ * window's border already matches the requested state.
+ * 
+ * You can't change the border state of a fullscreen window.
+ * @param  SDL_Window $window   The window of which to change the border state.
+ * @param  bool       $bordered SDL_FALSE to remove border, SDL_TRUE to add border.
+ * @return void
+ */
+function SDL_SetWindowBordered(
+    SDL_Window $window,
+    bool $bordered
+):void {
+}
+
+/**
+ * Show a window.
+ * @param  SDL_Window $window
+ * @return void
+ */
+function SDL_ShowWindow(SDL_Window $window):void {
+}
+
+/**
+ * Hide a window.
+ * @param  SDL_Window $window
+ * @return void
+ */
+function SDL_HideWindow(SDL_Window $window):void {
+}
+
+/**
+ * Raise a window above other windows and set the input focus.
+ * @param  SDL_Window $window
+ * @return void
+ */
+function SDL_RaiseWindow(SDL_Window $window):void {
+}
+
+/**
+ * Make a window as large as possible.
+ * @param  SDL_Window $window
+ * @return void
+ */
+function SDL_MaximizeWindow(SDL_Window $window):void {
+}
+
+/**
+ * Minimize a window to an iconic representation.
+ * @param  SDL_Window $window
+ * @return void
+ */
+function SDL_MinimizeWindow(SDL_Window $window):void {
+}
+
+/**
+ * Restore the size and position of a minimized or maximized window.
+ * @param  SDL_Window $window
+ * @return void
+ */
+function SDL_RestoreWindow(SDL_Window $window):void {
+}
+
+/**
+ * Set a window's fullscreen state.
+ * @param  SDL_Window $window
+ * @param  int        $flags
+ * @return void       0 on success, or -1 if setting the display mode failed.
+ */
+function SDL_SetWindowFullscreen(
+    SDL_Window $window,
+    int $flags
+):void {
+}
+
+/**
+ * Set a window's input grab mode.
+ * @param  SDL_Window $window  The window for which the input grab mode should be set.
+ * @param  bool       $grabbed This is SDL_TRUE to grab input, and SDL_FALSE to release input.
+ * @return void
+ */
+function SDL_SetWindowGrab(
+    SDL_Window $window,
+    bool $grabbed
+):void {
+}
+
+/**
+ * Get a window's input grab mode.
+ * @param  SDL_Window $window
+ * @return bool       This returns SDL_TRUE if input is grabbed, and SDL_FALSE otherwise.
+ */
+function SDL_GetWindowGrab(SDL_Window $window):bool {
+    return true;
+}
+
+/**
+ * Set the brightness (gamma correction) for a window.
+ * @param  SDL_Window $window
+ * @param  float      $brightness
+ * @return int        0 on success, or -1 if setting the brightness isn't supported.
+ */
+function SDL_SetWindowBrightness(
+    SDL_Window $window,
+    float $brightness
+):int {
+    return 0;
+}
+
+/**
+ * Get the brightness (gamma correction) for a window.
+ * @param  SDL_Window $window
+ * @return void       The last brightness value passed to `SDL_SetWindowBrightness()`.
+ */
+function SDL_GetWindowBrightness(SDL_Window $window):void {
+}
+
+/**
+ * Get the gamma ramp for a window.
+ * @param  SDL_Window $window The window from which the gamma ramp should be queried.
+ * @param  array      $red    A pointer to a 256 element array of 16-bit quantities to hold the translation table for the red channel, or `NULL`.
+ * @param  array      $green  A pointer to a 256 element array of 16-bit quantities to hold the translation table for the green channel, or `NULL`.
+ * @param  array      $blue   A pointer to a 256 element array of 16-bit quantities to hold the translation table for the blue channel, or `NULL`.
+ * @return int        0 on success, or -1 if gamma ramps are unsupported.
+ */
+function SDL_GetWindowGammaRamp(
+    SDL_Window $window,
+    array &$red,
+    array &$green,
+    array &$blue
+):int {
+    return 0;
+}
+
+/**
+ * Get the title of a window, in UTF-8 format.
+ * @param  SDL_Window $window
+ * @return string
+ */
+function SDL_GetWindowTitle(SDL_Window $window):string {
+    return '';
+}
+
+/**
+ * Return whether the given window is a shaped window.
+ * @param  SDL_Window $window The window to query for being shaped.
+ * @return null|bool  `true` if the window is a window that can be shaped, `false` if the window is unshaped or `NULL`.
+ */
+function SDL_IsShapedWindow(SDL_Window $window):null|bool {
+    return null;
+}
+
+/**
+ * Get the shape parameters of a shaped window.
+ * @param  SDL_Window          $window     The shaped window whose parameters should be retrieved.
+ * @param  SDL_WindowShapeMode $shape_mode An empty shape-mode structure to fill, 
+ *                                         or `NULL` to check whether the window has a shape.
+ * @return int                 0 if the window has a shape and, provided shape_mode was not `NULL`, 
+ *                                        shape_mode has been filled with the mode data, `SDL_NONSHAPEABLE_WINDOW` if 
+ *                                        the `SDL_Window` given is not a shaped window, or `SDL_WINDOW_LACKS_SHAPE` if 
+ *                                        the `SDL_Window*` given is a shapeable window currently lacking a shape.
+ */
+function SDL_GetShapedWindowMode(
+    SDL_Window $window,
+    SDL_WindowShapeMode &$shape_mode
+):int {
+    return 0;
 }
