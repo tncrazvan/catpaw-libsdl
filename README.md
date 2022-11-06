@@ -1,4 +1,7 @@
-Create a new project using
-```bash
-composer create-project catpaw/starter
-```
+# Demo
+
+![image](./demo.gif)
+
+# Stubs
+
+![image](./stubs.gif)

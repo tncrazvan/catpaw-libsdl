@@ -1,8 +1,8 @@
 {
-    "name": "catpaw/starter",
+    "name": "catpaw/libsdl",
     "type": "project",
-    "description": "A php CatPaw starter template",
-    "homepage": "https://github.com/tncrazvan/catpaw-starter",
+    "description": "Tools and stubs for libsdl GUI library in Linux (and maybe Windows?)",
+    "homepage": "https://github.com/tncrazvan/catpaw-libsdl",
     "license": "MIT",
     "scripts": {
         "load": "XDEBUG_MODE=off composer dump-autoload -o",

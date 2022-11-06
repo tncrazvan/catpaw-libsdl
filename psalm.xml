@@ -15,4 +15,7 @@
         <directory name="tests" />
         <directory name="vendor" />
     </projectFiles>
+    <stubs>
+        <file name="stubs/index.php" />
+    </stubs>
 </psalm>
