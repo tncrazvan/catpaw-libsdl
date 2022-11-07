@@ -1056,23 +1056,50 @@ const RW_SEEK_SET = 0;
 const RW_SEEK_CUR = 1;
 const RW_SEEK_END = 2;
 
+
+const SDL_MESSAGEBOX_COLOR_BACKGROUND        = 0;
+const SDL_MESSAGEBOX_COLOR_TEXT              = 1;
+const SDL_MESSAGEBOX_COLOR_BUTTON_BORDER     = 2;
+const SDL_MESSAGEBOX_COLOR_BUTTON_BACKGROUND = 3;
+const SDL_MESSAGEBOX_COLOR_BUTTON_SELECTED   = 4;
+const SDL_MESSAGEBOX_COLOR_MAX               = 5;
+
+const SDL_MESSAGEBOX_ERROR       = 0x00000010;
+const SDL_MESSAGEBOX_WARNING     = 0x00000020;
+const SDL_MESSAGEBOX_INFORMATION = 0x00000040;
+
 class SDL_MessageBoxData implements Stringable {
+    const ERROR       = 0x00000010;
+    const WARNING     = 0x00000020;
+    const INFORMATION = 0x00000040;
+
     public function __construct(
         public int $flags,
         public string $title,
-        public string $text,
+        public string $message,
         public array $buttons = [],
         public array $colors = [],
         public null|SDL_Window $window = null,
     ) {
     }
 
+    public function Show(int &$id):int {
+        return 0;
+    }
+    
     public function __toString(): string {
         return '';
     }
 }
 
 class SDL_MessageBoxColor implements Stringable {
+    const BACKGROUND        = 0;
+    const TEXT              = 1;
+    const BUTTON_BORDER     = 2;
+    const BUTTON_BACKGROUND = 3;
+    const BUTTON_SELECTED   = 4;
+    const MAX               = 5;
+
     public function __construct(
         public int $r,
         public int $g,
@@ -2020,10 +2047,6 @@ function SDL_Quit() {
  */
 function SDL_GetVersion(array &$version):void {
 }
-
-const SDL_MESSAGEBOX_ERROR       = 0x00000010;
-const SDL_MESSAGEBOX_WARNING     = 0x00000020;
-const SDL_MESSAGEBOX_INFORMATION = 0x00000040;
 
 /**
  * Create a simple modal message box.
