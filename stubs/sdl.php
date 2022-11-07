@@ -1056,7 +1056,6 @@ const RW_SEEK_SET = 0;
 const RW_SEEK_CUR = 1;
 const RW_SEEK_END = 2;
 
-
 class SDL_MessageBoxData implements Stringable {
     public function __construct(
         public int $flags,
@@ -1828,10 +1827,11 @@ class SDL_DisplayMode implements Stringable {
 
 /**
  * Initialize SDL module.
- * @param  int  $flag Check `SDL_INIT_*` constants
- * @return void
+ * @param  int $flag Check `SDL_INIT_*` constants
+ * @return int
  */
-function SDL_Init(int $flag):mixed {
+function SDL_Init(int $flag):int {
+    return 0;
 }
 
 /**
